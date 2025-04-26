@@ -12,7 +12,8 @@ def filter_by_state(operation: list[dict], operation_state: str = "EXECUTED") ->
     for operation_dict in operation:
         if operation_dict.get("state") == operation_state:
             operation_list.append(operation_dict)
-    return operation_list
+    message = f"Отфильтрованный список операций по статусу "
+    return message, operation_list
 
 
 def sort_by_date(operation: list[dict], sorted_by=None) -> list[dict]:
@@ -22,8 +23,8 @@ def sort_by_date(operation: list[dict], sorted_by=None) -> list[dict]:
         sorted_operation = sorted(operation, key=lambda oper: oper["date"], reverse=True)
     else:
         sorted_operation = sorted(operation, key=lambda oper: oper["date"])
-
-    return sorted_operation
+    message = f"Отфильтрованный список операций по дате "
+    return message, sorted_operation
 
 
 if __name__ == "__main__":
