@@ -17,3 +17,5 @@ def get_mask_account(account_number: int) -> str:
     str_account_number = str(account_number)
     new_account = "**" + str_account_number[-4:]
     return new_account
+
+
