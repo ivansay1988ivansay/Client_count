@@ -4,26 +4,7 @@ import pytest
 from src.masks import get_mask_card_number, get_mask_account
 
 from src.processing import sort_by_date, operation
-from src.widget import mask_account_card
-
-sorted_operation = 'Отфильтрованный список операций по дате ', [
-    {'id': 41428829, 'state': 'EXECUTED', 'date': '2019-07-03T18:35:29.512364'},
-    {'id': 615064591, 'state': 'CANCELED', 'date': '2018-10-14T08:21:33.419441'},
-    {'id': 594226727, 'state': 'CANCELED', 'date': '2018-09-12T21:27:25.241689'},
-    {'id': 939719570, 'state': 'EXECUTED', 'date': '2018-06-30T02:08:58.425572'}
-]
-
-
-def test_sort_by_date(list_of_operations):
-    '''Базовый тест на работу функции'''
-    assert sort_by_date(list_of_operations) == sorted_operation
-
-
-def test_sort_by_date_missing_key():
-    """Тест с операцией без ключа date"""
-    invalid_ops = operation + [{"id": 1, "state": "EXECUTED"}]
-    with pytest.raises(KeyError):
-        sort_by_date(invalid_ops)
+from src.widget import mask_account_card, get_date
 
 
 @pytest.mark.parametrize("card_number, expected", [
@@ -74,3 +55,42 @@ def test_mask_account_card(mask_account_name_card, mask_account_name_check):
 def test_parametrize_mask_account_card(account_number, expected):
     '''Параметризованное тестирование mask_account_card'''
     assert mask_account_card(account_number) == expected
+
+def test_mask_account_card_letters(card_number):
+    assert mask_account_card(card_number) == "Название карты/счета не может начинаться с цифры"
+
+def test_sort_by_date(list_of_operations, sorted_operation):
+    '''Базовый тест на работу функции'''
+    assert sort_by_date(list_of_operations) == sorted_operation
+
+
+def test_sort_by_date_missing_key():
+    """Тест с операцией без ключа date"""
+    invalid_ops = operation + [{"id": 1, "state": "EXECUTED"}]
+    with pytest.raises(KeyError):
+        sort_by_date(invalid_ops)
+
+
+def test_get_date():
+    '''Базовый тест на проверку преобразования даты'''
+    assert get_date("2024-03-11T02:26:18.671407") == '11.03.2024'
+    assert get_date("2025-05-01T14:02:56.542341") == '01.05.2025'
+
+
+@pytest.mark.parametrize("date, expected", [
+    # Проверка граничных случаев дат
+    ('2023-01-01T00:00:00.000000', '01.01.2023'),
+    ('2023-12-31T23:59:59.999999', '31.12.2023'),
+    # Проверка нестандартных, но допустимых строк с датой
+    ('2024/03/11-02/26/18', '11.03.2024'),
+    ('2024/03/11', '11.03.2024'),
+    # Проверка недопустимых дат
+    ('1999/05', 'Введите корректную дату'),
+    ('wtf', 'Введите корректную дату')
+
+])
+
+
+def test_get_date_not_standard(date, expected):
+    '''Проверка нестандартных случаев'''
+    assert get_date(date) == expected
