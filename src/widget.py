@@ -15,3 +15,7 @@ def get_date(date: str) -> str:
     date = "2024-03-11T02:26:18.671407"
     modif_date = date[:10]
     return modif_date[8:10] + "." + modif_date[5:7] + "." + modif_date[0:4]
+
+if __name__ == "__main__":
+    print(mask_account_card("Visa Gold 5999414228426300"))
+    print(mask_account_card("Счет 73654108430135874305"))

@@ -6,7 +6,7 @@ operation = [
 ]
 
 
-def filter_by_state(operation: list[dict], operation_state: str = "EXECUTED") -> list[dict]:
+def filter_by_state(operation: list[dict], operation_state: str = "EXECUTED") -> tuple[str, list[dict]]:
     """функция принимает список словарей + статус операции, и фильтрует по заданному статусу"""
     operation_list = []
     for operation_dict in operation:
@@ -16,15 +16,18 @@ def filter_by_state(operation: list[dict], operation_state: str = "EXECUTED") ->
     return message, operation_list
 
 
-def sort_by_date(operation: list[dict], sorted_by=None) -> list[dict]:
+def sort_by_date(operation: list[dict], sorted_by=True) -> tuple[str, list[dict]]:
     """Функция принимает список словарей, и возвращает новый отсортированный по ключу date"""
 
-    if sorted_by == None:
+    if sorted_by:
         sorted_operation = sorted(operation, key=lambda oper: oper["date"], reverse=True)
     else:
         sorted_operation = sorted(operation, key=lambda oper: oper["date"])
     message = f"Отфильтрованный список операций по дате "
     return message, sorted_operation
+
+
+
 
 
 if __name__ == "__main__":

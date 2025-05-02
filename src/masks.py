@@ -1,15 +1,18 @@
-def get_mask_card_number(cart_number: int) -> str:
-    """Функция маскирует номер карты клиента, за исключением первых шести, и последних четырех цифр"""
-    count = []
 
-    str_cart_number = str(cart_number)
-    disguise_cart_number = str_cart_number[:6] + "*" * (len(str_cart_number) - 10) + str_cart_number[-4:]
+def get_mask_card_number(card_number: int) -> str:
+    """
+       Маскирует номер карты, оставляя первые 6 и последние 4 цифры
+       Форматирует результат в группы по 4 цифры, разделенные пробелами
 
-    for num in range(0, len(disguise_cart_number), 4):
-        count.append(disguise_cart_number[num : num + 4])
+    """
+    str_card = str(card_number)
+    if len(str_card) < 10:
+        raise ValueError("Номер карты должен содержать минимум 10 цифр")
 
-    return " ".join(count)
-
+    masked = str_card[:6] + '*' * (len(str_card) - 10) + str_card[-4:]
+    # Разбиваем на группы по 4 цифры
+    parts = [masked[i:i + 4] for i in range(0, len(masked), 4)]
+    return ' '.join(parts)
 
 def get_mask_account(account_number: int) -> str:
     """Функция маскирует номер счёта, оставляя только последние 4 цифры"""
@@ -19,3 +22,5 @@ def get_mask_account(account_number: int) -> str:
     return new_account
 
 
+if __name__ == "__main__":
+     print(get_mask_card_number(1234561234567896))
