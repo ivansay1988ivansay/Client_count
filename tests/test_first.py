@@ -2,8 +2,7 @@
 import pytest
 
 from src.masks import get_mask_card_number, get_mask_account
-
-from src.processing import sort_by_date, operation
+from src.processing import sort_by_date, operation, filter_by_state
 from src.widget import mask_account_card, get_date
 
 
@@ -12,9 +11,11 @@ from src.widget import mask_account_card, get_date
     (36159852478526, "3615 98** **85 26"),
     (12345678901234567890, "1234 56** **** **** 7890")
 ])
+
 def test_parametrize_get_mask_card_number(card_number, expected):
     '''Тест на работу функции с разной длинной карты'''
     assert get_mask_card_number(card_number) == expected
+
 
 def test_short_card_number():
     '''Тест на обработку слишком короткого номера карты'''
@@ -37,6 +38,7 @@ def test_parametrize_valid_account_numbers(account_number, expected):
     """Параметризованное тестирование правильности маскирования номера счета"""
     assert get_mask_account(account_number) == expected
 
+
 def test_mask_account_card(mask_account_name_card, mask_account_name_check):
     '''Стандартное тестирование mask_account_card'''
     assert mask_account_card(mask_account_name_card) == "Maestro 7000 79** **** 6361"
@@ -56,12 +58,17 @@ def test_parametrize_mask_account_card(account_number, expected):
     '''Параметризованное тестирование mask_account_card'''
     assert mask_account_card(account_number) == expected
 
+
 def test_mask_account_card_letters(card_number):
     assert mask_account_card(card_number) == "Название карты/счета не может начинаться с цифры"
 
-def test_sort_by_date(list_of_operations, sorted_operation):
+def test_sort_by_date(list_of_operations, sorted_operation, sorted_operation_reverse):
     '''Базовый тест на работу функции'''
     assert sort_by_date(list_of_operations) == sorted_operation
+
+
+def test_sort_by_date_rev(not_sorted_operation, sorted_operation_reverse):
+    assert sort_by_date(not_sorted_operation, False) == sorted_operation_reverse
 
 
 def test_sort_by_date_missing_key():
@@ -71,10 +78,9 @@ def test_sort_by_date_missing_key():
         sort_by_date(invalid_ops)
 
 
-def test_get_date():
+def test_get_date(get_date_test):
     '''Базовый тест на проверку преобразования даты'''
-    assert get_date("2024-03-11T02:26:18.671407") == '11.03.2024'
-    assert get_date("2025-05-01T14:02:56.542341") == '01.05.2025'
+    assert get_date(get_date_test) == '11.03.2024'
 
 
 @pytest.mark.parametrize("date, expected", [
@@ -90,7 +96,18 @@ def test_get_date():
 
 ])
 
-
 def test_get_date_not_standard(date, expected):
     '''Проверка нестандартных случаев'''
     assert get_date(date) == expected
+
+
+def test_filter_by_state(list_of_operations, list_sort_by_state):
+    '''Базовый тест на сортировку по статусу'''
+    assert filter_by_state(list_of_operations) == list_sort_by_state
+
+
+def test_filter_not_state(list_not_state):
+    '''Тест на отсутствующий статус'''
+    assert filter_by_state(list_not_state) == "Операций со статусом 'EXECUTED' не найдено."
+
+
