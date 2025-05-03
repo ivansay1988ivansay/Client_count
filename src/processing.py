@@ -14,24 +14,21 @@ def filter_by_state(operation: list[dict], operation_state: str = "EXECUTED") ->
             operation_list.append(operation_dict)
 
     if not operation_list:
-        return (f"Операций со статусом '{operation_state}' не найдено.")
+        return f"Операций со статусом '{operation_state}' не найдено."
 
-    message = f"Отфильтрованный список операций по статусу "
+    message = "Отфильтрованный список операций по статусу "
     return message, operation_list
 
 
-def sort_by_date(operation: list[dict], sorted_by=True) -> tuple[str, list[dict]]:
+def sort_by_date(operation: list[dict], sorted_by: bool = True) -> tuple[str, list[dict]]:
     """Функция принимает список словарей, и возвращает новый отсортированный по ключу date"""
 
     if sorted_by:
         sorted_operation = sorted(operation, key=lambda oper: oper["date"], reverse=True)
     else:
         sorted_operation = sorted(operation, key=lambda oper: oper["date"])
-    message = f"Отфильтрованный список операций по дате "
+    message = "Отфильтрованный список операций по дате "
     return message, sorted_operation
-
-
-
 
 
 if __name__ == "__main__":

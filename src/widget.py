@@ -2,7 +2,7 @@ from src.masks import get_mask_account, get_mask_card_number
 
 
 def mask_account_card(client_data: str) -> str:
-    '''Функция маскирует номер карты клиента'''
+    """Функция маскирует номер карты клиента"""
     client_data_divided = client_data.rsplit(" ", 1)
     if client_data_divided[0].isdigit():
         return "Название карты/счета не может начинаться с цифры"
@@ -13,11 +13,12 @@ def mask_account_card(client_data: str) -> str:
 
 
 def get_date(date: str) -> str:
-    '''Функция преобразует дату проведения операции'''
+    """Функция преобразует дату проведения операции"""
     if len(date) < 10:
-        return 'Введите корректную дату'
+        return "Введите корректную дату"
     modif_date = date[:10]
     return modif_date[8:10] + "." + modif_date[5:7] + "." + modif_date[0:4]
+
 
 if __name__ == "__main__":
     print(mask_account_card("Visa Gold 5999414228426300"))
