@@ -173,5 +173,9 @@ cython_debug/
 # PyPI configuration file
 .pypirc
 
+<<<<<<< HEAD
 garbage.py
 first_conveer.py
+=======
+garbage.py
+>>>>>>> new-feature

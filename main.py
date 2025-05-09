@@ -5,10 +5,10 @@ operation = [
     {"id": 615064591, "state": "CANCELED", "date": "2018-10-14T08:21:33.419441"},
 ]
 
-from src.widget import mask_account_card, get_date
 from src.processing import filter_by_state, sort_by_date
+from src.widget import mask_account_card, get_date
 
-print(mask_account_card("Visa Gold 5999414228426353"))
+print(mask_account_card("Visa Gold 5999414228426300"))
 
 print(get_date("2024-03-11T02:26:18.671407"))
 
