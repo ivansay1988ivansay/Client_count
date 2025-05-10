@@ -37,7 +37,6 @@ pip-log.txt
 pip-delete-this-directory.txt
 
 # Unit test / coverage reports
-htmlcov/
 .tox/
 .nox/
 .coverage
@@ -177,5 +176,4 @@ cython_debug/
 garbage.py
 first_conveer.py
 =======
-garbage.py
 >>>>>>> new-feature
