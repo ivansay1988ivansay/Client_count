@@ -1,5 +1,7 @@
 import pytest
 
+from data import transactions
+from src.generators import card_number_generator, filter_by_currency, transaction_descriptions
 from src.masks import get_mask_card_number, get_mask_account
 from src.processing import sort_by_date, operation, filter_by_state
 from src.widget import mask_account_card, get_date
@@ -116,3 +118,26 @@ def test_filter_by_state(list_of_operations, list_sort_by_state):
 def test_filter_not_state(list_not_state):
     """Тест на отсутствующий статус"""
     assert filter_by_state(list_not_state) == "Операций со статусом 'EXECUTED' не найдено."
+
+
+def test_filters_by_currency_code():
+    """Проверяем, что функция отбирает транзакции по коду валюты"""
+    result = list(filter_by_currency(transactions, "USD"))
+    assert len(result) == 3, "Должна быть только одна USD транзакция"
+
+
+def test_card_number_generator(expected_results):
+    '''Тест на создание генератором номеров карт в заданном диапазоне'''
+    generator = card_number_generator(1, 5)
+    actual_results = list(generator)
+    assert actual_results == expected_results
+
+
+def test_transaction_descriptions():
+    """Проверяем, что функция корректно извлекает описания транзакций"""
+    desc_gen = transaction_descriptions(transactions)
+    assert next(desc_gen) == "Перевод организации"
+    assert next(desc_gen) == "Перевод со счета на счет"
+    assert next(desc_gen) == "Перевод со счета на счет"
+    assert next(desc_gen) == "Перевод с карты на карту"
+    assert next(desc_gen) == "Перевод организации"

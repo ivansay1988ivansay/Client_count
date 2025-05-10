@@ -2,6 +2,7 @@ from data import transactions
 
 
 def filter_by_currency(transactions_list, currency):
+    '''Функция возвращает список транзакций, с указанным типом валюты в запросе'''
     for transaction in transactions_list:
         if transaction["operationAmount"]["currency"]["code"] == currency:
             yield 'Транзакция по запросу',  transaction
@@ -10,11 +11,13 @@ def filter_by_currency(transactions_list, currency):
 # print(next(filter_by_currency(transactions, 'USD')))
 
 def transaction_descriptions(transactions_list):
+    '''Функция по запросу возвращает описание одной транзакции за один запрос'''
     for transaction in transactions_list:
         yield transaction["description"]
 
 
 def card_number_generator(start, end):
+    '''Функция-генератор, для создания номеров карт, разделенных по блокам из 4 символов'''
     counter = start
     while counter <= end:
         number_str = str(counter)

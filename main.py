@@ -1,7 +1,7 @@
 from data import transactions, operation
 from src.processing import filter_by_state, sort_by_date
 from src.widget import mask_account_card, get_date
-from src.generators import filter_by_currency, transaction_descriptions
+from src.generators import filter_by_currency, transaction_descriptions, card_number_generator
 
 print(mask_account_card("Visa Gold 5999414228426300"))
 
@@ -22,3 +22,6 @@ if __name__ == "__main__":
 
     for _ in range(5):
         print(next(descriptions))
+
+    for card in card_number_generator(1, 100):
+        print(card)
