@@ -17,3 +17,7 @@ poetry --version
 ### 3. Утилиты (`widget.py`)
 - `mask_account_card(data)` - маскирует номера карт/счетов
 - `get_date(date_str)` - форматирует дату в вид DD.MM.YYYY
+
+### 4. Декораторы (`decorators.py`)
+- `log(filename=None)` - логирует работу функции в консоль, или в файл принятый как аргумент
+

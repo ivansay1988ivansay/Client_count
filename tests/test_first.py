@@ -1,6 +1,7 @@
 import pytest
 
 from data import transactions
+from src.decorators import log, puts
 from src.generators import card_number_generator, filter_by_currency, transaction_descriptions
 from src.masks import get_mask_card_number, get_mask_account
 from src.processing import sort_by_date, operation, filter_by_state
@@ -143,3 +144,14 @@ def test_transaction_descriptions():
     assert next(desc_gen) == "Перевод с карты на карту"
     assert next(desc_gen) == "Перевод организации"
 
+def test_puts(capsys):
+    '''Тест декоратора на вывод в консоль'''
+    @log()
+    def puts(a, b):
+        return a + b
+
+    result = puts(4, 5)
+    captured = capsys.readouterr()
+
+    assert "Название запущенной функции: puts" in captured.out
+    assert "Результат работы функции: 9" in captured.out
