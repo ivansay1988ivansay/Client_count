@@ -169,6 +169,10 @@ cython_debug/
 # Ruff stuff:
 .ruff_cache/
 
+тренеровочка.py
+тренеровочка2.py
+
+
 # PyPI configuration file
 .pypirc
 

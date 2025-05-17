@@ -37,3 +37,4 @@ if __name__ == "__main__":
         print(next(descriptions))
 
 print(card_number_generator(1, 7))
+print(help(card_number_generator))

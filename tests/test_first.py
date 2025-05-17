@@ -5,6 +5,7 @@ from src.generators import card_number_generator, filter_by_currency, transactio
 from src.masks import get_mask_card_number, get_mask_account
 from src.processing import sort_by_date, operation, filter_by_state
 from src.widget import mask_account_card, get_date
+from тренеровочка import fuf, add
 
 
 @pytest.mark.parametrize(
@@ -141,3 +142,4 @@ def test_transaction_descriptions():
     assert next(desc_gen) == "Перевод со счета на счет"
     assert next(desc_gen) == "Перевод с карты на карту"
     assert next(desc_gen) == "Перевод организации"
+
