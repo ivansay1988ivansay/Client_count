@@ -13,6 +13,7 @@ def log(filename=None):
                 end_time = datetime.now()
                 message_to_log = (f'Название запущенной функции: {fun.__name__}\n'
                             f'Время запуска функции: {start_time.time()}\n'
+                            f'На вход функции были переданы: {args}. {kwargs}\n'
                             f'Функция работала {end_time - start_time} секунд\n'
                             f'Окончание работы функции: {end_time.time()}\n'
                             f'Результат работы функции: {result}\n'
@@ -28,7 +29,8 @@ def log(filename=None):
             except Exception as e:
                 end_time = datetime.now()
                 error_message_to_log =(f'Название функции: {fun.__name__}\n'
-                                    f'Ошибка: {start_time.time()}\n'
+                                       f'Время запуска функции: {start_time.time()}\n'
+                                    f'На вход функции были переданы: {args}. {kwargs}\n'
                                     f"Ошибка: {type(e).__name__}\n"
                                     f'Окончание работы функции: {end_time.time()}\n'
                                     "===============================\n"
@@ -47,4 +49,4 @@ def log(filename=None):
 def puts(a, b):
     return a / b
 
-print(puts(2, 1))
+print(puts(2, 4))
