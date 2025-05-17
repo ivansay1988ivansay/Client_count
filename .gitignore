@@ -37,7 +37,6 @@ pip-log.txt
 pip-delete-this-directory.txt
 
 # Unit test / coverage reports
-htmlcov/
 .tox/
 .nox/
 .coverage
@@ -170,8 +169,15 @@ cython_debug/
 # Ruff stuff:
 .ruff_cache/
 
+тренеровочка.py
+тренеровочка2.py
+
+
 # PyPI configuration file
 .pypirc
 
+<<<<<<< HEAD
 garbage.py
 first_conveer.py
+=======
+>>>>>>> new-feature

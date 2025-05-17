@@ -1,17 +1,27 @@
-operation = [
-    {"id": 41428829, "state": "EXECUTED", "date": "2019-07-03T18:35:29.512364"},
-    {"id": 939719570, "state": "EXECUTED", "date": "2018-06-30T02:08:58.425572"},
-    {"id": 594226727, "state": "CANCELED", "date": "2018-09-12T21:27:25.241689"},
-    {"id": 615064591, "state": "CANCELED", "date": "2018-10-14T08:21:33.419441"},
-]
-
-from src.widget import mask_account_card, get_date
+from data import transactions, operation
 from src.processing import filter_by_state, sort_by_date
+from src.widget import mask_account_card, get_date
+from src.generators import filter_by_currency, transaction_descriptions, card_number_generator
 
-print(mask_account_card("Visa Gold 5999414228426353"))
+print(mask_account_card("Visa Gold 5999414228426300"))
 
 print(get_date("2024-03-11T02:26:18.671407"))
 
 print(filter_by_state(operation))
 
 print(sort_by_date(operation))
+
+usd_transactions = filter_by_currency(transactions, "USD")
+descriptions = transaction_descriptions(transactions)
+
+if __name__ == "__main__":
+
+    for _ in range(2):
+        print(next(usd_transactions))
+
+
+    for _ in range(5):
+        print(next(descriptions))
+
+    for card in card_number_generator(1, 100):
+        print(card)
